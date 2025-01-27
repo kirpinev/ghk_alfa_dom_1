@@ -721,7 +721,7 @@ export const App = () => {
           view="primary"
           // onClick={submit}
         >
-          Подключить
+          Продолжить
         </ButtonMobile>
 
         <Gap size={16} />
