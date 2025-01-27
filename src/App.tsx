@@ -490,19 +490,18 @@ const services: Array<Services> = [
   },
 ];
 
-function getRandomServiceType(arr: Array<Services>) {
-  const randomIndex = Math.floor(Math.random() * arr.length);
-  return arr[randomIndex];
+const getRandomServices = (arr: Array<Services>) => {
+  return arr.sort(() => Math.random() - 0.5);
 }
 
-const defaultServiceType = getRandomServiceType(services);
+const randomServices = getRandomServices(services);
 
 export const App = () => {
   const [loading, setLoading] = useState(false);
   const [thxShow, setThx] = useState(LS.getItem(LSKeys.ShowThx, false));
-  const [serviceType, setServiceType] = useState(defaultServiceType.swiperText);
+  const [serviceType, setServiceType] = useState(randomServices[0].swiperText);
   const [serviceProducts, setServiceProducts] =
-    useState<Services>(defaultServiceType);
+    useState<Services>(randomServices[0]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [selectedItems, setSelectedItems] = useState<Array<Service | null>>([]);
