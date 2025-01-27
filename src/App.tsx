@@ -50,12 +50,9 @@ import sesyriti4 from "./assets/sesyriti-4.png";
 import sesyriti5 from "./assets/sesyriti-5.png";
 import sesyriti6 from "./assets/sesyriti-6.png";
 
-import { LS, LSKeys } from "./ls";
 import { appSt } from "./style.css";
-import { ThxLayout } from "./thx/ThxLayout";
 import { Gap } from "@alfalab/core-components/gap";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { sendDataToGA } from "./utils/events.ts";
 import { BottomSheet } from "@alfalab/core-components/bottom-sheet";
 
 interface Service {
@@ -497,8 +494,8 @@ const getRandomServices = (arr: Array<Services>) => {
 const randomServices = getRandomServices(services);
 
 export const App = () => {
-  const [loading, setLoading] = useState(false);
-  const [thxShow, setThx] = useState(LS.getItem(LSKeys.ShowThx, false));
+  // const [loading, setLoading] = useState(false);
+  // const [thxShow, setThx] = useState(LS.getItem(LSKeys.ShowThx, false));
   const [serviceType, setServiceType] = useState(randomServices[0].swiperText);
   const [serviceProducts, setServiceProducts] =
     useState<Services>(randomServices[0]);
@@ -506,18 +503,18 @@ export const App = () => {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [selectedItems, setSelectedItems] = useState<Array<Service | null>>([]);
 
-  const submit = () => {
-    setLoading(true);
-    sendDataToGA().then(() => {
-      LS.setItem(LSKeys.ShowThx, true);
-      setThx(true);
-      setLoading(false);
-    });
-  };
+  // const submit = () => {
+  //   setLoading(true);
+  //   sendDataToGA().then(() => {
+  //     LS.setItem(LSKeys.ShowThx, true);
+  //     setThx(true);
+  //     setLoading(false);
+  //   });
+  // };
 
-  if (thxShow) {
-    return <ThxLayout />;
-  }
+  // if (thxShow) {
+  //   return <ThxLayout />;
+  // }
 
   return (
     <>
@@ -718,11 +715,11 @@ export const App = () => {
 
       <div className={appSt.bottomBtn}>
         <ButtonMobile
-          loading={loading}
+          // loading={loading}
           disabled={selectedItems.length === 0}
           block
           view="primary"
-          onClick={submit}
+          // onClick={submit}
         >
           Подключить
         </ButtonMobile>
