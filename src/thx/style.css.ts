@@ -1,7 +1,7 @@
 import { style } from "@vanilla-extract/css";
 
 const container = style({
-  display: "flx",
+  display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
@@ -13,7 +13,13 @@ const rocket = style({
   marginTop: "5rem",
 });
 
+const title = style({
+  marginTop: "66px",
+  marginBottom: "15px",
+});
+
 export const thxSt = {
   container,
   rocket,
+  title,
 };

@@ -13,7 +13,6 @@ import designProject from "./assets/design-project.png";
 import remont1 from "./assets/remont1.png";
 import pokupki from "./assets/pokupki.png";
 import pereezd from "./assets/pereezd.png";
-import tech from "./assets/tech.png";
 
 import buySell1 from "./assets/buy-sell-1.png";
 import buySell2 from "./assets/buy-sell-2.png";
@@ -54,6 +53,8 @@ import { appSt } from "./style.css";
 import { Gap } from "@alfalab/core-components/gap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { BottomSheet } from "@alfalab/core-components/bottom-sheet";
+import { ThxLayout } from "./thx/ThxLayout.tsx";
+import { LS, LSKeys } from "./ls";
 
 interface Service {
   title: string;
@@ -80,7 +81,7 @@ const services: Array<Services> = [
         image: urist,
         modalTitle: "Мастер на час",
         modalText: [
-          "Вы сможете оставить заявку на выполнение мелких бытовых задач через наш сервис. Мы подберем подходящего мастера, который сможет приехать в удобное для вас время.",
+          "Оставляйте заявку на выполнение мелких бытовых задач через наш сервис. Мы подберем подходящего мастера, который сможет приехать в удобное для вас время.",
           "Все мастера проходят тщательную проверку, поэтому вы можете быть уверены в качестве работы.",
         ],
       },
@@ -90,7 +91,7 @@ const services: Array<Services> = [
         image: clining,
         modalTitle: "Клининг",
         modalText: [
-          "Вы сможете выбрать тип уборки, указать удобную дату и время. Команда профессионалов проведет уборку согласно вашему запросу.",
+          "Выбирайте тип уборки, указать удобную дату и время. Команда профессионалов проведёт уборку согласно вашему запросу.",
         ],
       },
       {
@@ -99,7 +100,7 @@ const services: Array<Services> = [
         image: himka,
         modalTitle: "Химчистка",
         modalText: [
-          "Вы сможете оставить заявку на услуги химчистки, оформить и отслеживать заказ.",
+          "Оставляйте заявку на услуги химчистки, оформляйте и отслеживайте заказ.",
         ],
       },
       {
@@ -108,7 +109,7 @@ const services: Array<Services> = [
         image: products,
         modalTitle: "Заказ продуктов",
         modalText: [
-          "Вы сможете выбрать и заказать продукты прямо в нашем приложении. Мы организуем весь процесс и доставим до вашей двери.",
+          "Выбирайте и заказывайте продукты прямо в нашем приложении. Мы организуем весь процесс и доставим до вашей двери.",
         ],
       },
     ],
@@ -123,7 +124,7 @@ const services: Array<Services> = [
         image: remont,
         modalTitle: "Накопить на ремонт",
         modalText: [
-          "Вы можете создать цель накопления денег на ремонт. Мы поможем  контролировать расходы и сбережения, а также предложим советы по оптимизации бюджета.",
+          "Создайте цель накопления денег на ремонт. Мы поможем контролировать расходы и сбережения, а также предложим советы по оптимизации бюджета.",
         ],
       },
       {
@@ -132,7 +133,7 @@ const services: Array<Services> = [
         image: creditRemont,
         modalTitle: "Кредит на ремонт",
         modalText: [
-          "Вы сможете подать заявку на кредит, мы поможем подобрать лучшие условия и оформим кредит максимально быстро.",
+          "Подайте заявку на кредит, мы поможем подобрать лучшие условия и оформим кредит максимально быстро.",
         ],
       },
       {
@@ -141,7 +142,7 @@ const services: Array<Services> = [
         image: designProject,
         modalTitle: "Дизайн-проект",
         modalText: [
-          "Вы сможет заказать дизайн-проект по вашим предпочтениям и бюджету. Это поможет избежать ошибок при ремонте и создать интерьер своей мечты.",
+          "Закажите дизайн-проект по вашим предпочтениям и бюджету. Это поможет избежать ошибок при ремонте и создать интерьер своей мечты.",
         ],
       },
       {
@@ -150,7 +151,7 @@ const services: Array<Services> = [
         image: remont1,
         modalTitle: "Ремонт",
         modalText: [
-          "Вы сможете выбрать ремонтную бригаду, общаться с дизайнерами и специалистами по ремонту и отслеживать ход выполняемых работ.",
+          "Выбирайте из проверенных ремонтных бригад, общайтесь с дизайнерами и специалистами по ремонту, отслеживайте ход выполняемых работ.",
         ],
       },
       {
@@ -159,25 +160,7 @@ const services: Array<Services> = [
         image: pokupki,
         modalTitle: "Покупки для ремонта и дома",
         modalText: [
-          "Широкий ассортимент товаров для ремонта и дома, включая строительные материалы, мебель, декор и многое другое. Всё это можно выгодно купить в одном месте, сэкономив время и силы.",
-        ],
-      },
-      {
-        swiperText: "Ремонт",
-        title: "Переезд",
-        image: pereezd,
-        modalTitle: "Переезд",
-        modalText: [
-          "Широкий ассортимент товаров для ремонта и дома, включая строительные материалы, мебель, декор и многое другое. Всё это можно выгодно купить в одном месте, сэкономив время и силы.",
-        ],
-      },
-      {
-        swiperText: "Ремонт",
-        title: "Тех.надзор при строительстве дома",
-        image: tech,
-        modalTitle: "Технический надзор",
-        modalText: [
-          "Вы сможете заказать услугу технического надзора. К вам направится специалист, который проконтролирует ход строительных и ремонтных работ, своевременно выявит ошибки и поможет их исправить, экономя ваши деньги и нервы.",
+          "Широкий ассортимент товаров для ремонта и дома, включая строительные материалы, мебель, декор и многое другое. Всё это можно выгодно купить в одном месте с повышенным кэшбэком и скидками от партнёров.",
         ],
       },
     ],
@@ -192,7 +175,7 @@ const services: Array<Services> = [
         image: buySell1,
         modalTitle: "Найти риелтора",
         modalText: [
-          "Вы сможете заполнить форму запроса на поиск риелтора, указав свои требования и цели. Мы подберём для вас проверенного эксперта с хорошей репутацией и большим опытом работы. ",
+          "Вы сможете заполнить форму запроса на поиск риелтора, указав свои требования и цели. Мы подберём для вас проверенного эксперта с хорошей репутацией и большим опытом работы.",
         ],
       },
       {
@@ -201,7 +184,7 @@ const services: Array<Services> = [
         image: buySell2,
         modalTitle: "Оценка стоимости жилья",
         modalText: [
-          "Оцените стоимость недвижимости онлайн, основываясь на анализе рынка и сравнении с аналогичными объектами.",
+          "Оцените стоимость недвижимости онлайн, основываясь на данных банка о сделках и интеграторах, анализе рынка и сравнении с аналогичными объектами.",
         ],
       },
       {
@@ -210,7 +193,7 @@ const services: Array<Services> = [
         image: buySell3,
         modalTitle: "Проведение сделки",
         modalText: [
-          "Мы поможем вам провести сделку купли-продажи недвижимости, обеспечивая юридическое сопровождение, подготовку документов и контроль всех этапов процесса.",
+          "Мы поможем вам провести сделку купли-продажи недвижимости безопасно и без риска, обеспечивая юридическое сопровождение, подготовку документов и контроль всех этапов процесса. Дополнительно мы поможем зарегистрировать собственность.",
         ],
       },
       {
@@ -219,7 +202,7 @@ const services: Array<Services> = [
         image: buySell4,
         modalTitle: "Налоговый вычет",
         modalText: [
-          "Вы можете обратиться к нам за консультацией по получению налогового вычета при покупке недвижимости.",
+          "Обратитесь к нам за консультацией по получению налогового вычета при покупке недвижимости.",
           "Наши специалисты помогут правильно заполнить документы, чтобы избежать ошибок.",
         ],
       },
@@ -229,7 +212,7 @@ const services: Array<Services> = [
         image: buySell5,
         modalTitle: "Подбор объекта недвижимости",
         modalText: [
-          "Мы подберём для вас подходящие варианты. Вы можете просмотреть подробную информацию о каждом объекте и запланировать просмотры.",
+          "Мы подберём для вас подходящие варианты и предложим специальные условия на покупку. Вы можете просмотреть подробную информацию о каждом объекте и запланировать просмотры.",
         ],
       },
       {
@@ -247,8 +230,17 @@ const services: Array<Services> = [
         image: buySell7,
         modalTitle: "Приёмка квартиры",
         modalText: [
-          "Вы можете заказать услугу приёмки квартиры после строительства или ремонта. Специалисты проведут тщательный осмотр, документально фиксируя все недочеты и дефекты.",
+          "Закажите услугу приёмки квартиры после строительства или ремонта. Специалисты проведут тщательный осмотр, документально фиксируя все недочеты и дефекты.",
           "Это позволит требовать компенсацию или исправления дефектов от застройщика или подрядчика.",
+        ],
+      },
+      {
+        swiperText: "Покупка-продажа недвижимости",
+        title: "Переезд",
+        image: pereezd,
+        modalTitle: "Переезд",
+        modalText: [
+          "Заказывайте услугу переезда. Мы предоставляем транспорт, упаковочные материалы и команду грузчиков, которые помогут аккуратно перевезти ваше имущество на новое место.",
         ],
       },
     ],
@@ -368,7 +360,7 @@ const services: Array<Services> = [
         image: kabala6,
         modalTitle: "Информирование о гос. поддержке",
         modalText: [
-          "Возможность узнать о существующих программах помощи и субсидий, которые могут существенно облегчить приобретение или улучшение жилищных условий.",
+          "Узнавайте о существующих программах помощи и субсидий, которые могут существенно облегчить приобретение или улучшение жилищных условий.",
         ],
       },
       {
@@ -377,7 +369,7 @@ const services: Array<Services> = [
         image: kabala7,
         modalTitle: "Доступ к сообществу",
         modalText: [
-          "Постоянный доступ к актуальной информации и поддержке. Вы сможете обсудить любые вопросы, касающиеся недвижимости, ремонта, строительства и многого другого.",
+          "Получите постоянный доступ к актуальной информации и поддержке. Вы сможете обсудить любые вопросы, касающиеся недвижимости, ремонта, строительства и многого другого.",
         ],
       },
     ],
@@ -401,7 +393,7 @@ const services: Array<Services> = [
         image: consult2,
         modalTitle: "Консультация риелтора",
         modalText: [
-          "Вы сможете записаться на консультацию с риелтором. Он поможет вам разобраться в текущих тенденциях рынка, выбрать оптимальный вариант недвижимости и провести успешную сделку.",
+          "Запишитесь на консультацию с риелтором. Он поможет вам разобраться в текущих тенденциях рынка, выбрать оптимальный вариант недвижимости и провести успешную сделку.",
         ],
       },
       {
@@ -419,7 +411,7 @@ const services: Array<Services> = [
         image: consult4,
         modalTitle: "Подписка на консультации",
         modalText: [
-          "Вы можете подписаться на пакет услуг, который включает доступ к экспертам в области недвижимости. Специалисты будут готовы ответить на ваши вопросы и оказать необходимую поддержку в любое время.",
+          "Подпишитесь на пакет услуг, который включает доступ к экспертам в области недвижимости. Специалисты будут готовы ответить на ваши вопросы и оказать необходимую поддержку в любое время.",
         ],
       },
     ],
@@ -443,7 +435,7 @@ const services: Array<Services> = [
         image: sesyriti2,
         modalTitle: "Уведомления о доме",
         modalText: [
-          "Всегда актуальная информация о состоянии вашего дома и предстоящих изменениях.",
+          "Получайте всегда актуальную информацию о состоянии вашего дома и предстоящих изменениях.",
           "Вы будете заранее знать об отключении воды, ремонтных работах и сможете планировать своё время.",
         ],
       },
@@ -453,7 +445,7 @@ const services: Array<Services> = [
         image: sesyriti3,
         modalTitle: "Заявки в УК",
         modalText: [
-          "Вы сможете подать заявку через наш сервис без личного визита в офис управляющей компании.",
+          "Подавайте заявки через наш сервис без личного визита в офис управляющей компании.",
         ],
       },
       {
@@ -489,32 +481,33 @@ const services: Array<Services> = [
 
 const getRandomServices = (arr: Array<Services>) => {
   return arr.sort(() => Math.random() - 0.5);
-}
+};
 
 const randomServices = getRandomServices(services);
 
 export const App = () => {
-  // const [loading, setLoading] = useState(false);
-  // const [thxShow, setThx] = useState(LS.getItem(LSKeys.ShowThx, false));
+  const [loading, setLoading] = useState(false);
+  const [thxShow, setThx] = useState(LS.getItem(LSKeys.ShowThx, false));
   const [serviceType, setServiceType] = useState(randomServices[0].swiperText);
-  const [serviceProducts, setServiceProducts] =
-    useState<Services>(randomServices[0]);
+  const [serviceProducts, setServiceProducts] = useState<Services>(
+    randomServices[0],
+  );
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [selectedItems, setSelectedItems] = useState<Array<Service | null>>([]);
 
-  // const submit = () => {
-  //   setLoading(true);
-  //   sendDataToGA().then(() => {
-  //     LS.setItem(LSKeys.ShowThx, true);
-  //     setThx(true);
-  //     setLoading(false);
-  //   });
-  // };
+  const submit = () => {
+    setLoading(true);
+    Promise.resolve().then(() => {
+      LS.setItem(LSKeys.ShowThx, true);
+      setThx(true);
+      setLoading(false);
+    });
+  };
 
-  // if (thxShow) {
-  //   return <ThxLayout />;
-  // }
+  if (thxShow) {
+    return <ThxLayout />;
+  }
 
   return (
     <>
@@ -677,37 +670,64 @@ export const App = () => {
                 >
                   Выбрать
                 </ButtonMobile>
-                <Gap size={16} />
               </>
             )}
 
-          {selectedItems.length > 0 &&
-          selectedItems.find(
-            (selectedItem) => selectedItem?.title === selectedService?.title,
-          ) ? (
-            <ButtonMobile
-              block
-              view="primary"
-              onClick={() => {
-                setSelectedItems([
-                  ...selectedItems.filter(
-                    (item) => item?.title !== selectedService?.title,
-                  ),
-                ]);
-                setIsModalVisible(false);
-              }}
-            >
-              Отменить выбор
-            </ButtonMobile>
-          ) : (
-            <ButtonMobile
-              block
-              view="text"
-              onClick={() => setIsModalVisible(false)}
-            >
-              Назад
-            </ButtonMobile>
+          {selectedItems.length > 0 && (
+            <>
+              {selectedItems.find(
+                (selectedItem) =>
+                  selectedItem?.title === selectedService?.title,
+              ) && (
+                <ButtonMobile
+                  block
+                  view="primary"
+                  onClick={() => {
+                    setSelectedItems([
+                      ...selectedItems.filter(
+                        (item) => item?.title !== selectedService?.title,
+                      ),
+                    ]);
+                    setIsModalVisible(false);
+                  }}
+                >
+                  Отменить выбор
+                </ButtonMobile>
+              )}
+              {selectedItems.length >= 6 &&
+                !selectedItems.find(
+                  (selectedItem) =>
+                    selectedItem?.title === selectedService?.title,
+                ) && (
+                  <Typography.Text
+                    view="primary-medium"
+                    color="secondary"
+                    weight="bold"
+                    style={{
+                      height: "56px",
+                      textAlign: "center",
+                      alignContent: "center",
+                    }}
+                  >
+                    Выбрано максимум услуг
+                  </Typography.Text>
+                )}
+            </>
           )}
+
+          {selectedItems.length < 6 &&
+            !selectedItems.find(
+              (selectedItem) => selectedItem?.title === selectedService?.title,
+            ) && (
+              <ButtonMobile
+                block
+                view="transparent"
+                size={56}
+                onClick={() => setIsModalVisible(false)}
+              >
+                Назад
+              </ButtonMobile>
+            )}
         </BottomSheet>
       </div>
 
@@ -715,24 +735,17 @@ export const App = () => {
 
       <div className={appSt.bottomBtn}>
         <ButtonMobile
-          // loading={loading}
+          loading={loading}
           disabled={selectedItems.length === 0}
           block
           view="primary"
-          // onClick={submit}
+          size="xl"
+          hint={"Выберите до 6 любых сервисов"}
+          onClick={submit}
         >
-          Продолжить
+          {selectedItems.length} из 6 выбрано
+          <br />
         </ButtonMobile>
-
-        <Gap size={16} />
-
-        <Typography.Text
-          view="primary-small"
-          color="secondary"
-          style={{ textAlign: "center" }}
-        >
-          Выберите до 6 любых сервисов
-        </Typography.Text>
       </div>
     </>
   );
