@@ -3,7 +3,6 @@ import { recipe } from "@vanilla-extract/recipes";
 
 const container = style({
   display: "flex",
-  padding: "1rem",
   flexDirection: "column",
 });
 
@@ -11,6 +10,7 @@ const box = style({
   display: "flex",
   flexDirection: "column",
   textAlign: "center",
+  padding: "0 1rem 0 1rem",
 });
 
 const subscription = style({
@@ -49,6 +49,7 @@ const products = style({
   flexWrap: "wrap",
   gap: "1rem",
   justifyContent: "space-between",
+  padding: "0 1rem 0 1rem",
 });
 
 const product = style({
@@ -62,12 +63,22 @@ const product = style({
   justifyContent: "space-between",
   minHeight: "100px",
   border: "2px solid #F2F9FF",
+
+  "@media": {
+    "(max-width: 360px)": {
+      maxWidth: "100%",
+      flex: "1 1 100%",
+    },
+  },
 });
 
 const productTitle = style({
-  lineHeight: "24px",
-  fontSize: "17px",
-  marginBottom: "0",
+  fontSize: "16px",
+  "@media": {
+    "(max-width: 360px)": {
+      fontSize: "15px",
+    },
+  },
 });
 
 const productIcon = style({
@@ -108,6 +119,11 @@ const swSlide = recipe({
     display: "flex",
     alignItems: "center",
     marginRight: "16px",
+    "@media": {
+      "(max-width: 360px)": {
+        fontSize: "14px",
+      },
+    },
   },
   variants: {
     selected: {
@@ -127,7 +143,11 @@ const swSlide = recipe({
 });
 
 globalStyle(`.swiper-slide:last-of-type`, {
-  marginRight: '24px',
+  marginRight: "24px",
+});
+
+globalStyle(`.swiper-slide:first-of-type`, {
+  marginLeft: "16px",
 });
 
 const serviceContainer = style({
