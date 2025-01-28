@@ -30,7 +30,6 @@ import rent5 from "./assets/rent-5.png";
 import rent6 from "./assets/rent-6.png";
 
 import kabala1 from "./assets/kabala-1.png";
-import kabala2 from "./assets/kabala-2.png";
 import kabala3 from "./assets/kabala-3.png";
 import kabala4 from "./assets/kabala-4.png";
 import kabala5 from "./assets/kabala-5.png";
@@ -306,7 +305,7 @@ const services: Array<Services> = [
     ],
   },
   {
-    halfWithCount: 2,
+    halfWithCount: 0,
     swiperText: "Ипотека",
     items: [
       {
@@ -316,15 +315,6 @@ const services: Array<Services> = [
         modalTitle: "Страхование ипотеки",
         modalText: [
           "Спокойствие и защита от возможных рисков, связанных с невыплатой ипотеки. Страховой полис обеспечит финансовую поддержку в случае потери работы, болезни или других форс-мажорных обстоятельств.",
-        ],
-      },
-      {
-        swiperText: "Ипотека",
-        title: "Оценка",
-        image: kabala2,
-        modalTitle: "Оценка недвижимости",
-        modalText: [
-          "Наши эксперты проведут оценку стоимости объекта, основываясь на анализе рынка и сравнении с аналогичными объектами.",
         ],
       },
       {
