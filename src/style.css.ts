@@ -13,22 +13,6 @@ const box = style({
   padding: "0 1rem 0 1rem",
 });
 
-const subscription = style({
-  display: "flex",
-  alignItems: "center",
-  border: "2px solid #F3F4F5",
-  borderRadius: "24px",
-  boxSizing: "border-box",
-  padding: "1rem",
-  justifyContent: "space-evenly",
-  gap: "1.2rem",
-});
-
-const subscriptionText = style({
-  fontSize: "15px",
-  lineHeight: "20px",
-});
-
 const bottomBtn = style({
   background: "white",
   position: "fixed",
@@ -37,11 +21,6 @@ const bottomBtn = style({
   padding: "12px",
   bottom: 0,
   textAlign: "center",
-});
-
-const productsTitle = style({
-  fontSize: "22px",
-  marginBottom: "1rem",
 });
 
 const products = style({
@@ -83,23 +62,6 @@ const productTitle = style({
 
 const productIcon = style({
   alignSelf: "end",
-});
-
-const productText = style({
-  marginBottom: 0,
-});
-
-const plans = style({
-  display: "flex",
-  justifyContent: "center",
-  gap: "0.5rem",
-  position: "sticky",
-  top: "0",
-  zIndex: 100,
-  boxSizing: "border-box",
-  backgroundColor: "white",
-  padding: "1rem 0",
-  marginTop: "-19px",
 });
 
 const swSlide = recipe({
@@ -160,15 +122,10 @@ export const appSt = {
   bottomBtn,
   container,
   box,
-  subscription,
-  subscriptionText,
-  productsTitle,
   products,
   productTitle,
   product,
   productIcon,
-  productText,
-  plans,
   swSlide,
   serviceContainer,
 };

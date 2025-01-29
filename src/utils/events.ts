@@ -4,7 +4,11 @@ declare global {
   }
 }
 
-export const sendDataToGA = async () => {
+interface Payload {
+  [key: string]: string;
+}
+
+export const sendDataToGAServices = async (payload: Payload) => {
   try {
     const now = new Date();
     const date = `${now.getFullYear()}-${
@@ -12,14 +16,39 @@ export const sendDataToGA = async () => {
     }-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
 
     await fetch(
-      "https://script.google.com/macros/s/AKfycbwAhSLvtD2NS7tOi2wqhkl5YRn4sTS4qVOgrUTrFaOlERMWN8osYjRL1G-R4NwYqkUZvg/exec",
+      "https://script.google.com/macros/s/AKfycbwaH-p5vCt36lIyEOZPOPm9lliyW3LN-xPcoduAOJlIVg_m8bP-O8_o4nCwWy8KLstSVg/exec",
       {
         redirect: "follow",
         method: "POST",
         body: JSON.stringify({
           date,
-          variant: "ghk_alfa_dom_1",
-          plan_name: "Стоимость 399 ₽/мес.",
+          ...payload,
+        }),
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8",
+        },
+      },
+    );
+  } catch (error) {
+    console.error("Error!", error);
+  }
+};
+
+export const sendDataToGAServicesWithContacts = async (payload: Payload) => {
+  try {
+    const now = new Date();
+    const date = `${now.getFullYear()}-${
+      now.getMonth() + 1
+    }-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+
+    await fetch(
+      "https://script.google.com/macros/s/AKfycbzVOyE5prKXsH101lYfdWuaSWqBdSaAaFggi1_ni9STNTqFUe8j2V7SVWT_RZW3Dnk2hw/exec",
+      {
+        redirect: "follow",
+        method: "POST",
+        body: JSON.stringify({
+          date,
+          ...payload,
         }),
         headers: {
           "Content-Type": "text/plain;charset=utf-8",

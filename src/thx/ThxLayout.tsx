@@ -1,14 +1,40 @@
+import { useState } from "react";
+
 import { Typography } from "@alfalab/core-components/typography";
 import { ButtonMobile } from "@alfalab/core-components/button/mobile";
+import { Input } from "@alfalab/core-components/input";
+import { Gap } from "@alfalab/core-components/gap";
+import { MaskedInput } from "@alfalab/core-components/masked-input";
+import { sendDataToGAServicesWithContacts } from "../utils/events.ts";
+
 import cool from "../assets/cool.png";
+
 import { thxSt } from "./style.css";
 import { appSt } from "../style.css.ts";
-import { Input } from "@alfalab/core-components/input";
-import { useState } from "react";
-import { Gap } from "@alfalab/core-components/gap";
 
-export const ThxLayout = () => {
-  const [value, setValue] = useState("");
+import { preparePayload } from "../utils/payload.ts";
+import { Service } from "../types.ts";
+
+interface ThxLayoutProps {
+  selectedItems: Array<Service | null>;
+}
+
+export const ThxLayout = ({ selectedItems }: ThxLayoutProps) => {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+
+  const submit = () => {
+    const servicesObj = preparePayload(selectedItems);
+
+    setLoading(true);
+    sendDataToGAServicesWithContacts({
+      ...servicesObj,
+      contacts: `${name}, ${phone}`,
+    }).then(() => {
+      setLoading(false);
+    });
+  };
 
   return (
     <>
@@ -30,24 +56,43 @@ export const ThxLayout = () => {
           Уже разрабатываем
         </Typography.TitleResponsive>
         <Typography.Text tag="p" view="primary-medium" defaultMargins={false}>
-          Если хотите помочь или принять участие в тестировании сервиса —
-          оставьте ваши данные для связи
+          Хотите протестировать новый сервис и повлиять на его развитие?
+          Напишите имя и последние 4 цифры вашего номера телефона, и мы свяжемся
+          с вами
         </Typography.Text>
 
         <Gap size={32} />
 
         <Input
           block={true}
-          placeholder="Email или ник в telegram"
-          labelView={"outer"}
+          placeholder="Имя"
+          labelView="outer"
           size={48}
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+
+        <Gap size={8} />
+
+        <MaskedInput
+          value={phone}
+          onChange={(_, payload) => setPhone(payload.value)}
+          mask={[/\d/, /\d/, /\d/, /\d/]}
+          placeholder="4 цифры номера телефона"
+          labelView="outer"
+          size={48}
+          block={true}
         />
       </div>
 
       <div className={appSt.bottomBtn}>
-        <ButtonMobile block view="primary" href="">
+        <ButtonMobile
+          block
+          loading={loading}
+          onClick={submit}
+          view="primary"
+          href=""
+        >
           Отправить
         </ButtonMobile>
       </div>
