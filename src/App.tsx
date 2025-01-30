@@ -7,13 +7,14 @@ import { appSt } from "./style.css";
 import { Gap } from "@alfalab/core-components/gap";
 import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
 import { BottomSheet } from "@alfalab/core-components/bottom-sheet";
-import { ThxLayout } from "./thx/ThxLayout.tsx";
+import { Contacts } from "./contacts/Contacts.tsx";
 import { LS, LSKeys } from "./ls";
 import { sendDataToGAServices } from "./utils/events.ts";
 import { Services, Service } from "./types.ts";
 import { preparePayload } from "./utils/payload.ts";
 import { services } from "./constants.ts";
 import { getRandomServices } from "./utils/get-random-services.ts";
+import { ThankYou } from "./thx/ThankYou.tsx";
 
 const randomServices = getRandomServices(services);
 
@@ -27,6 +28,7 @@ export const App = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [selectedItems, setSelectedItems] = useState<Array<Service | null>>([]);
+  const [isContactsFormVisible, setIsContactsFormVisible] = useState(false);
 
   const swiperRef = useRef<SwiperRef | null>(null);
 
@@ -35,8 +37,7 @@ export const App = () => {
 
     setLoading(true);
     sendDataToGAServices({ ...servicesObj }).then(() => {
-      LS.setItem(LSKeys.ShowThx, true);
-      setThx(true);
+      setIsContactsFormVisible(true);
       setLoading(false);
     });
   };
@@ -48,7 +49,13 @@ export const App = () => {
   }, [selectedItems]);
 
   if (thxShow) {
-    return <ThxLayout selectedItems={selectedItems} />;
+    return <ThankYou />;
+  }
+
+  if (isContactsFormVisible) {
+    return (
+      <Contacts selectedItems={selectedItems} handleThx={() => setThx(true)} />
+    );
   }
 
   return (

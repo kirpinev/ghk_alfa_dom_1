@@ -14,26 +14,32 @@ import { appSt } from "../style.css.ts";
 
 import { preparePayload } from "../utils/payload.ts";
 import { Service } from "../types.ts";
+import { LS, LSKeys } from "../ls";
 
 interface ThxLayoutProps {
   selectedItems: Array<Service | null>;
+  handleThx: () => void;
 }
 
-export const ThxLayout = ({ selectedItems }: ThxLayoutProps) => {
+export const Contacts = ({ selectedItems, handleThx }: ThxLayoutProps) => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
   const submit = () => {
-    const servicesObj = preparePayload(selectedItems);
+    if (name && phone) {
+      const servicesObj = preparePayload(selectedItems);
 
-    setLoading(true);
-    sendDataToGAServicesWithContacts({
-      ...servicesObj,
-      contacts: `${name}, ${phone}`,
-    }).then(() => {
-      setLoading(false);
-    });
+      setLoading(true);
+      sendDataToGAServicesWithContacts({
+        ...servicesObj,
+        contacts: `${name}, ${phone}`,
+      }).then(() => {
+        setLoading(false);
+        LS.setItem(LSKeys.ShowThx, true);
+        handleThx();
+      });
+    }
   };
 
   return (
@@ -88,6 +94,7 @@ export const ThxLayout = ({ selectedItems }: ThxLayoutProps) => {
       <div className={appSt.bottomBtn}>
         <ButtonMobile
           block
+          disabled={name.length < 1 || phone.length < 4}
           loading={loading}
           onClick={submit}
           view="primary"
